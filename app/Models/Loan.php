@@ -14,7 +14,6 @@ class Loan extends Model
         'due_date',
         'returned_at',
         'status',
-        'fine',
     ];
 
     protected function casts(): array

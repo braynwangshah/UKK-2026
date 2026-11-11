@@ -24,7 +24,6 @@ return new class extends Migration
             $table->date('returned_at')->nullable();
 
             $table->string('status')->default('dipinjam');
-            $table->integer('fine')->default(0);
 
             $table->timestamps();
         });

@@ -86,7 +86,6 @@ class BooksTable
                                     'loan_date' => today(),
                                     'due_date' => today()->addDays(self::LOAN_DAYS),
                                     'status' => 'dipinjam',
-                                    'fine' => 0,
                                 ]);
 
                                 $book->decrement('stock');

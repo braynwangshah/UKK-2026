@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class LoansTable
 {
-    private const FINE_PER_DAY = 1000;
-
     public static function configure(Table $table): Table
     {
         return $table
@@ -42,9 +40,6 @@ class LoansTable
                         default => 'success',
                     }),
 
-                TextColumn::make('fine')
-                    ->label('Denda')
-                    ->money('IDR'),
             ])
             ->recordActions([
                 Action::make('kembalikan')
@@ -75,16 +70,9 @@ class LoansTable
                                     throw new \RuntimeException('Peminjaman sudah dikembalikan.');
                                 }
 
-                                $today = today();
-
-                                $lateDays = $loan->due_date->lt($today)
-                                    ? (int) $loan->due_date->diffInDays($today)
-                                    : 0;
-
                                 $loan->update([
-                                    'returned_at' => $today,
+                                    'returned_at' => today(),
                                     'status' => 'dikembalikan',
-                                    'fine' => $lateDays * self::FINE_PER_DAY,
                                 ]);
 
                                 $loan->book()->increment('stock');
